@@ -1,0 +1,12 @@
+name: MaxPvP
+version: 0.2
+main: org.maxgamer.MaxPvP.MaxPvP
+author: Netherfoam
+
+description: Multithreaded PvP Stats plugin
+website: http://maxgamer.org
+
+commands:
+    pvp:
+        description: PvP things
+        usage: /PvP
