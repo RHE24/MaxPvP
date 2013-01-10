@@ -1,7 +1,11 @@
 package org.maxgamer.MaxPvP;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -12,10 +16,11 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public class PlayerListener implements Listener{
-	public PlayerListener(){
-	}
+	Random r = new Random();
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerDeath(EntityDeathEvent e){
@@ -54,6 +59,21 @@ public class PlayerListener implements Listener{
 		else{
 			killer.sendMessage(ChatColor.RED + "[PvP] That player is not worth points to you.");
 		}
+		
+		if(r.nextDouble() < MaxPvP.instance.getConfig().getDouble("head-drop-chance")){
+			ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+			SkullMeta meta = (SkullMeta) skull.getItemMeta();
+			
+			if(meta.setOwner(victim.getName())){
+				System.out.println("Success");
+			}
+			else{
+				System.out.println("Failed");
+			}
+			meta.setDisplayName(victim.getName() + "'s Head");
+			skull.setItemMeta(meta);
+			victim.getWorld().dropItem(victim.getLocation(), skull);
+	}
 		
 		kVic.setFriendly(); //You're not so bad when you're dead.
 	}

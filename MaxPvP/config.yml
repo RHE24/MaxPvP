@@ -1,2 +1,4 @@
 neverhostileworlds:
     - arena
+    
+head-drop-chance: 0.2
