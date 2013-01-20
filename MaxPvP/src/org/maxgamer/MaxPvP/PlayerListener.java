@@ -64,15 +64,11 @@ public class PlayerListener implements Listener{
 			ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
 			SkullMeta meta = (SkullMeta) skull.getItemMeta();
 			
-			if(meta.setOwner(victim.getName())){
-				System.out.println("Success");
-			}
-			else{
-				System.out.println("Failed");
-			}
+			meta.setOwner(victim.getName());
 			meta.setDisplayName(victim.getName() + "'s Head");
 			skull.setItemMeta(meta);
 			victim.getWorld().dropItem(victim.getLocation(), skull);
+			killer.sendMessage(ChatColor.GREEN + "* " + victim.getName() + "'s head rolls off their limp shoulders *");
 	}
 		
 		kVic.setFriendly(); //You're not so bad when you're dead.
