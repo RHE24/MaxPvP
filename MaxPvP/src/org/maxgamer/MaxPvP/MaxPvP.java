@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -115,7 +116,7 @@ public class MaxPvP extends JavaPlugin{
 		this.rewards.put(2, new StreakReward(){
 			@Override
 			public void give(Player p){
-				PotionEffect pot = new PotionEffect(PotionEffectType.JUMP, 6000, 1);
+				PotionEffect pot = new PotionEffect(PotionEffectType.JUMP, 1200, 1);
 				p.addPotionEffect(pot, false);
 				p.playEffect(p.getLocation(), Effect.POTION_BREAK, 0);
 				p.sendMessage(ChatColor.GOLD + "[PvP] " + ChatColor.GREEN + "Jump: II Granted!");
@@ -126,7 +127,7 @@ public class MaxPvP extends JavaPlugin{
 		this.rewards.put(3, new StreakReward(){
 			@Override
 			public void give(Player p){
-				PotionEffect pot = new PotionEffect(PotionEffectType.REGENERATION, 6000, 2);
+				PotionEffect pot = new PotionEffect(PotionEffectType.REGENERATION, 1200, 2);
 				p.addPotionEffect(pot, false);
 				p.playEffect(p.getLocation(), Effect.POTION_BREAK, 0);
 				p.sendMessage(ChatColor.GOLD + "[PvP] " + ChatColor.GREEN + "Regen: II Granted!");
@@ -137,7 +138,7 @@ public class MaxPvP extends JavaPlugin{
 		this.rewards.put(4, new StreakReward(){
 			@Override
 			public void give(Player p){
-				PotionEffect pot = new PotionEffect(PotionEffectType.SPEED, 18000, 3);
+				PotionEffect pot = new PotionEffect(PotionEffectType.SPEED, 2400, 3);
 				p.addPotionEffect(pot, false);
 				p.playEffect(p.getLocation(), Effect.POTION_BREAK, 0);
 				p.sendMessage(ChatColor.GOLD + "[PvP] " + ChatColor.GREEN + "Speed: III Granted!");
@@ -147,9 +148,16 @@ public class MaxPvP extends JavaPlugin{
 		this.rewards.put(5, new StreakReward(){
 			@Override
 			public void give(Player p){
-				p.setExp(p.getExp() + 200);
-				p.sendMessage(ChatColor.GOLD + "[PvP] " + ChatColor.GREEN + "200 Exp Granted!");
-				Bukkit.broadcastMessage(ChatColor.GOLD + "[PvP] " + ChatColor.GREEN + p.getName() + " has reached a 5 kill streak!");
+				ArrayList<PotionEffect> effects = new ArrayList<PotionEffect>();
+				effects.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 1));
+				effects.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 1));
+				effects.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 300, 2));
+				effects.add(new PotionEffect(PotionEffectType.JUMP, 300, 2));
+				effects.add(new PotionEffect(PotionEffectType.REGENERATION, 300, 1));
+				effects.add(new PotionEffect(PotionEffectType.SPEED, 300, 3));
+				
+				p.addPotionEffects(effects);
+				p.sendMessage(ChatColor.GOLD + "[PvP] " + ChatColor.GREEN + "Adrenaline Rush Granted!");
 			}
 		});
 		
